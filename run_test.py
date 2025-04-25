@@ -43,7 +43,8 @@ for prog in programs:
 
             # Timing for generating C code and compiling with GCC
             start_time = time.time()
-            run_subprocess(['bend', 'gen-c', f'{prog}.bend', '>', 'main.c'])
+            with open("main.c", "w") as f: 
+                subprocess.run(['bend', 'gen-c', f'{prog}.bend'], stdout=f)
             if sys.platform == 'linux':
                 run_subprocess(['gcc', 'main.c', '-o', 'main', '-O2', '-lm', '-lpthread'])
             elif sys.platform == 'darwin':  # For OSX
@@ -56,3 +57,9 @@ for prog in programs:
             run_subprocess(['./main'])
             end_time = time.time()
             print(f"Bend (parallel using C compiled): {end_time - start_time:.4f} seconds")
+
+            # Timing running using CUDA/gpu resources
+            start_time = time.time()
+            run_subprocess(['bend', 'run-cu', f'{prog}.bend'])
+            end_time = time.time()
+            print(f"Bend (parallel using CUDA): {end_time - start_time:.4f} seconds")
