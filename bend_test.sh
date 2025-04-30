@@ -39,5 +39,6 @@ module list
 
 echo -e "\n====== Current Working Directory ======"
 pwd
+echo -e "\n======================================="
 
-python ./cs1952y_final/run_test.py
+python run_test.py
