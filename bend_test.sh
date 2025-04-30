@@ -41,4 +41,9 @@ echo -e "\n====== Current Working Directory ======"
 pwd
 echo -e "\n======================================="
 
+module load rust
+cargo install hvm
+cargo install bend-lang
+export PATH=/users/eclocher/.cargo/bin:$PATH
+
 python run_test.py
